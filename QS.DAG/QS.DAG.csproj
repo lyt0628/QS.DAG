@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="QS.HierachyConfigurer">
+      <HintPath>..\..\QS.HierachyConfigurer\QS.HierachyConfigurer\bin\Release\netstandard2.0\QS.HierachyConfigurer.dll</HintPath>
+    </Reference>
+    <Reference Include="QS.Reactive">
+      <HintPath>..\..\QS.Reactive\QS.Reactive\bin\Debug\netstandard2.0\QS.Reactive.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
