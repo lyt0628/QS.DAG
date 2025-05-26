@@ -1,38 +1,35 @@
 ﻿using QS.DAG.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace QS.DAG.Config
 {
     public class DAGraphBuilder : IDAGraphBuilder
     {
         private DAGraphConfigurationBuilder _configurationBuilder;
-        private DAGraphModelBuilder _modelBuilder;
+        private DAGraphStructureDataBuilder _structureDataBuilder;
 
-        public IDAGraph Build()
+        public IDAGraph GetDAGraph()
         {
-            return BuildFactory().GetGraph();
+            return GetDAGraphFactory().GetDAGraph();
         }
 
-        public IDAGraphFactory BuildFactory()
+        public IDAGraphFactory GetDAGraphFactory()
         {
             var configBuilder = new DAGraphConfigBuilder();
-            configBuilder.Config(_modelBuilder);
+            configBuilder.Config(_structureDataBuilder);
             configBuilder.Config(_configurationBuilder);
             return new DAGraphFactory(configBuilder);
         }
 
-        public IDAGraphConfigurationConfigurer WithConfiguration()
+        public IDAGraphConfigurationConfigurer ConfigConfiguration()
         {
             _configurationBuilder = new DAGraphConfigurationBuilder();
             return _configurationBuilder;
         }
 
-        public IDAGraphModelConfigurer WithModel()
+        public IDAGraphModelConfigurer ConfigStructure()
         {
-            _modelBuilder = new DAGraphModelBuilder();
-            return _modelBuilder;
+            _structureDataBuilder = new DAGraphStructureDataBuilder();
+            return _structureDataBuilder;
         }
     }
 }

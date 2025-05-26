@@ -4,8 +4,6 @@ using QS.Reactive.Mon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 
 namespace QS.DAG.Core
 {
@@ -19,7 +17,7 @@ namespace QS.DAG.Core
             Id = id;
             _nodes = nodes;
             _edges = edges;
-            _listener = new CompositeGraphListener();
+            //_listener = new CompositeGraphListener();
             this.prioritySelector = prioritySelector;
         }
         private Func<INode, int> prioritySelector;
@@ -36,7 +34,7 @@ namespace QS.DAG.Core
         /// 当前节点的下标
         /// </summary>
         int _index = -1;
-        readonly CompositeGraphListener _listener;
+        private readonly CompositeGraphListener _listener = new CompositeGraphListener();
 
         public bool IsStarted()
         {
@@ -113,7 +111,8 @@ namespace QS.DAG.Core
 
         public IFlow<IForwardResult> Forward(IFlow<IMessage> message)
         {
-            if (!IsStarted() || IsCompleted()) {
+            if (!IsStarted() || IsCompleted())
+            {
                 return Flow<IForwardResult>.Return(new ForwardResult(ForwardResultType.Denied));
             }
 
@@ -123,7 +122,8 @@ namespace QS.DAG.Core
                 return Flow<IForwardResult>.Return(new ForwardResult(ForwardResultType.Denied));
             }
 
-            return message.Select(msg => {
+            return message.Select(msg =>
+            {
                 var ctx = new DAGraphContext(this, node, msg);
                 if (InLastNode())
                 { // 节点进入有守卫，但是退出是自由的
@@ -135,7 +135,7 @@ namespace QS.DAG.Core
                 {
                     var sucNodes = GetSuccessNodes()
                                     .Where(n => n.Guard == null || n.Guard(ctx));
-                    if(prioritySelector != null)
+                    if (prioritySelector != null)
                     {
                         sucNodes = sucNodes.OrderBy(n => prioritySelector(n));
                     }
@@ -151,7 +151,7 @@ namespace QS.DAG.Core
                 }
 
             });
-     
+
         }
 
         public void AddListener(IDAGraphListener listener)
@@ -168,7 +168,7 @@ namespace QS.DAG.Core
         {
             return May<IForwardResult>.Defer(() =>
             {
-                if(_nodes.Count == 0)
+                if (_nodes.Count == 0)
                 {
                     _listener.OnStart();
                     _listener.OnEnd();
@@ -199,7 +199,7 @@ namespace QS.DAG.Core
                     .Where(n =>
                     {
                         var ctx = new DAGraphContext(this, n, null);
-                        return n.Guard ==null || n.Guard(ctx);
+                        return n.Guard == null || n.Guard(ctx);
                     });
 
                     if (prioritySelector != null)

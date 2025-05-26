@@ -1,8 +1,6 @@
 ﻿using QS.DAG.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace QS.DAG.Config
 {
@@ -15,16 +13,15 @@ namespace QS.DAG.Config
             _configBuilder = configBuilder;
         }
 
-        public IDAGraph GetGraph()
+        public IDAGraph GetDAGraph()
         {
             var config = _configBuilder.Build();
-           
-            
+
             var configuration = config.GraphConfiguration;
-            var dagId = configuration.Id; 
+            var dagId = configuration.Id;
             var listener = configuration.Listener;
             var prioritySelector = configuration.PrioritySelector;
-            var model = config.GraphModel;
+            var model = config.GraphStructure;
             var nodes = model.Nodes.Select(nodeData =>
             {
                 var id = nodeData.Id;
@@ -46,16 +43,16 @@ namespace QS.DAG.Config
 
             var edges = model.Edges
                 .GroupBy(edge => edge.Prev)
-                .Aggregate(new Dictionary<int, IEnumerable<int>>(),(dict, edgeDatas) =>
+                .Aggregate(new Dictionary<int, IEnumerable<int>>(), (dict, edgeDatas) =>
                 {
                     var prevIndex = idIndexPairs[edgeDatas.Key];
-                  
-                    dict.Add(prevIndex, 
+
+                    dict.Add(prevIndex,
                             edgeDatas
-                                .Select(edgeData=>edgeData.Next)
+                                .Select(edgeData => edgeData.Next)
                                 .Select(nextId => idIndexPairs[nextId]));
                     return dict;
-                } );
+                });
             edges.Values.SelectMany(data => data)
                 .ToList()
                 .ForEach(noEntry => nodes[noEntry].IsEntry = false);

@@ -1,12 +1,10 @@
 ﻿using QS.DAG.Core;
 using QS.HierachyConfigurer;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace QS.DAG.Config
 {
-    public interface INodeConfigurer 
+    public interface INodeConfigurer
         : IChildConfigurer<IDAGraphModelConfigurer>
     {
         INodeConfigurer Id(string id);

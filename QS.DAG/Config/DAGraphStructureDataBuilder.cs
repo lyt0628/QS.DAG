@@ -1,19 +1,17 @@
 ﻿using QS.DAG.Config.Model;
 using QS.HierachyConfigurer;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace QS.DAG.Config
 {
-    internal class DAGraphModelBuilder  
-        : ParentBuilderConfigurerBase<DAGraphModel, 
-            DAGraphModelBuilder,
+    internal class DAGraphStructureDataBuilder
+        : ParentBuilderConfigurerBase<DAGraphStructureData,
+            DAGraphStructureDataBuilder,
             IDAGraphModelConfigurer>, IDAGraphModelConfigurer
     {
         readonly ICollection<NodeData> _nodes;
         readonly ICollection<EdgeData> _edges;
-        public DAGraphModelBuilder()
+        public DAGraphStructureDataBuilder()
         {
             _nodes = new List<NodeData>();
             _edges = new List<EdgeData>();
@@ -26,21 +24,21 @@ namespace QS.DAG.Config
                 _nodes.Add(node);
             }
         }
-        public void AddEdge(EdgeData edge) 
-        { 
-            if(edge != null)
+        public void AddEdge(EdgeData edge)
+        {
+            if (edge != null)
             {
                 _edges.Add(edge);
             }
         }
         public INodeConfigurer WithNode()
         {
-            return ApplyChildConfigurer(new NodeConfigurer()); 
+            return ApplyChildConfigurer(new NodeConfigurer());
         }
 
-        protected override DAGraphModel DoBuild()
+        protected override DAGraphStructureData DoBuild()
         {
-            return new DAGraphModel(_nodes, _edges);
+            return new DAGraphStructureData(_nodes, _edges);
         }
     }
 }

@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace QS.DAG.Config.Model
 {
-    internal class DAGraphModel
+    internal class DAGraphStructureData
     {
         public ICollection<NodeData> Nodes { get; }
         public ICollection<EdgeData> Edges { get; }
 
-        public DAGraphModel(ICollection<NodeData> nodes, ICollection<EdgeData> edges)
+        public DAGraphStructureData(ICollection<NodeData> nodes, ICollection<EdgeData> edges)
         {
             Nodes = nodes;
             Edges = edges;

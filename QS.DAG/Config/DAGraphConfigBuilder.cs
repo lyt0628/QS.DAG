@@ -1,8 +1,5 @@
 ﻿using QS.DAG.Config.Model;
 using QS.HierachyConfigurer;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace QS.DAG.Config
 {
@@ -12,9 +9,9 @@ namespace QS.DAG.Config
             IDAGraphConfigConfigurer>, IDAGraphConfigConfigurer
     {
         private DAGraphConfigurationBuilder _configurationBuilder;
-        private DAGraphModelBuilder _modelBuilder;
+        private DAGraphStructureDataBuilder _modelBuilder;
 
-        public IDAGraphConfigConfigurer Config(DAGraphModelBuilder modelConfigurer)
+        public IDAGraphConfigConfigurer Config(DAGraphStructureDataBuilder modelConfigurer)
         {
             _modelBuilder = modelConfigurer;
             return this;

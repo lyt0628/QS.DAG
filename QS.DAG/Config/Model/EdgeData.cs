@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace QS.DAG.Config.Model
+﻿namespace QS.DAG.Config.Model
 {
     internal class EdgeData
     {

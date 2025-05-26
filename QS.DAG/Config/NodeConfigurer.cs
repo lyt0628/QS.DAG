@@ -3,15 +3,14 @@ using QS.DAG.Core;
 using QS.HierachyConfigurer;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace QS.DAG.Config
 {
     internal class NodeConfigurer
-        : ChildConfigurerBase<DAGraphModelBuilder, IDAGraphModelConfigurer>,
+        : ChildConfigurerBase<DAGraphStructureDataBuilder, IDAGraphModelConfigurer>,
         INodeConfigurer
     {
-        private DAGraphModelBuilder _graphNodeConfigurer;
+        private DAGraphStructureDataBuilder _graphNodeConfigurer;
         private readonly string _prevId;
 
         public NodeConfigurer(string prevId = null)
@@ -29,12 +28,12 @@ namespace QS.DAG.Config
             this._nextIds = new List<string>();
         }
 
-        public override void InitSelf(DAGraphModelBuilder parent)
+        public override void InitSelf(DAGraphStructureDataBuilder parent)
         {
             this._graphNodeConfigurer = parent;
         }
 
-        public override void ConfigParent(DAGraphModelBuilder parent)
+        public override void ConfigParent(DAGraphStructureDataBuilder parent)
         {
             if (_id == null)
             {
@@ -47,11 +46,11 @@ namespace QS.DAG.Config
             parent.AddNode(node);
             if (_prevId != null)
             {
-                
+
                 var edge = new EdgeData(_prevId, _id);
                 parent.AddEdge(edge);
             }
-            if(_nextIds != null)
+            if (_nextIds != null)
             {
 
                 foreach (var nextId in _nextIds)
@@ -70,7 +69,7 @@ namespace QS.DAG.Config
 
         public INodeConfigurer Id(string id)
         {
-            if(_id != null)
+            if (_id != null)
             {
                 throw new InvalidOperationException();
             }
@@ -92,7 +91,7 @@ namespace QS.DAG.Config
 
         public INodeConfigurer WithNext()
         {
-            if(this._id == null)
+            if (this._id == null)
             {
                 throw new InvalidOperationException();
             }

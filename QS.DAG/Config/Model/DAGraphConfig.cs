@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace QS.DAG.Config.Model
+﻿namespace QS.DAG.Config.Model
 {
     internal class DAGraphConfig
     {
         public DAGraphConfiguration GraphConfiguration { get; }
-        public DAGraphModel GraphModel { get; }
+        public DAGraphStructureData GraphStructure { get; }
 
-        public DAGraphConfig(DAGraphConfiguration graphConfiguration, DAGraphModel graphModel)
+        public DAGraphConfig(DAGraphConfiguration graphConfiguration, DAGraphStructureData graphModel)
         {
             GraphConfiguration = graphConfiguration;
-            GraphModel = graphModel;
+            GraphStructure = graphModel;
         }
 
 

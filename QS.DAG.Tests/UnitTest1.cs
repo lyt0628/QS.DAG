@@ -1,6 +1,6 @@
 using QS.DAG.Core;
+using QS.Reactive;
 using QS.Reactive.Flow;
-using static QS.Reactive.Util.LambdaSubscriberExtensions;
 
 namespace QS.DAG.Tests
 {
@@ -38,7 +38,7 @@ namespace QS.DAG.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(!dag.IsCompleted(), Is.True);
-                Assert.That(dag.GetCurrentNode().IsEntry == false, Is.True);
+                Assert.That(dag.GetCurrentNode().IsEntry, Is.EqualTo(false));
             });
             dag.Forward(Flow<IMessage>.Just(msg)).Subscribe();
             Assert.That(dag.IsCompleted(), Is.True);

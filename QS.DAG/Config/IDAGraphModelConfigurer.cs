@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace QS.DAG.Config
+﻿namespace QS.DAG.Config
 {
     /// <summary>
     /// 节点配置

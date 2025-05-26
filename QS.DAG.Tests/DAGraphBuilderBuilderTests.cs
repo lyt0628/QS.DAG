@@ -1,5 +1,6 @@
 ﻿using QS.DAG.Config;
 using QS.DAG.Core;
+using QS.Reactive;
 using QS.Reactive.Flow;
 using QS.Reactive.Util;
 
@@ -35,17 +36,17 @@ namespace QS.DAG.Tests
             int nVisitCalled = 0;
             int nEndCalled = 0; 
             var builder = new DAGraphBuilder();
-            builder.WithModel()
+            builder.ConfigStructure()
                 .WithNode()
                     .Id("aaa")
                     .UserData(1)
                     .WithNext()
                         .UserData(2);
-            builder.WithConfiguration()
-                .Id("dag")
-                .Listener(new DAGListener((p,n)=>nVisitCalled++, ()=>nStartCalled++, ()=>nEndCalled++));
+            builder.ConfigConfiguration()
+                .Id("dag");
 
-            var dag = builder.Build();
+            var dag = builder.GetDAGraph();
+            dag.AddListener(new DAGListener((p, n) => nVisitCalled++, () => nStartCalled++, () => nEndCalled++));
             dag.Start().Subscribe();
             Assert.Multiple(() =>
             {

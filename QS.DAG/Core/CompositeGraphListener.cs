@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace QS.DAG.Core
 {
     internal class CompositeGraphListener : IDAGraphListener
     {
-        readonly IList<IDAGraphListener> _listeners;
+        private readonly IList<IDAGraphListener> _listeners;
 
         public CompositeGraphListener()
         {
@@ -15,11 +13,17 @@ namespace QS.DAG.Core
 
         public void Register(IDAGraphListener listener)
         {
-            _listeners.Add(listener);
+            if (listener != null)
+            {
+                _listeners.Add(listener);
+            }
         }
         public void Unregister(IDAGraphListener listener)
         {
-            _listeners.Remove(listener);
+            if(listener != null)
+            {
+                _listeners.Remove(listener);
+            }
         }
 
         public void OnEnd()

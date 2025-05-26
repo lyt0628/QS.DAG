@@ -1,7 +1,4 @@
 ﻿using QS.DAG.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace QS.DAG.Config
 {
@@ -10,9 +7,9 @@ namespace QS.DAG.Config
     /// </summary>
     internal interface IDAGraphBuilder
     {
-        IDAGraph Build();
-        IDAGraphFactory BuildFactory();
-        IDAGraphModelConfigurer WithModel();
-        IDAGraphConfigurationConfigurer WithConfiguration();
+        IDAGraph GetDAGraph();
+        IDAGraphFactory GetDAGraphFactory();
+        IDAGraphModelConfigurer ConfigStructure();
+        IDAGraphConfigurationConfigurer ConfigConfiguration();
     }
 }

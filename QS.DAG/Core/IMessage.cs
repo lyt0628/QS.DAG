@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace QS.DAG.Core
+﻿namespace QS.DAG.Core
 {
     public interface IMessage
     {
-
+        MessageHeader Header { get; }
     }
 }
